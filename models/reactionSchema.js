@@ -15,6 +15,9 @@ const reactionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: () => Date.now(),
+        get: function () {
+            return this.createdAt.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        }
     },
 });
 

@@ -13,6 +13,9 @@ const thoughtSchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: () => Date.now(),
+            get: function () {
+                return format(this, "yyyy-MM-dd")
+            }
         },
         username: {
             type: String,
@@ -31,12 +34,6 @@ const thoughtSchema = new mongoose.Schema(
 thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
 });
-
-// createdAt
-// Date
-// Set default value to the current timestamp
-// Use a getter method to format the timestamp on query
-// format(new Date(), "yyyy-MM-dd"),
 
 const Thought = mongoose.model("thoughts", thoughtSchema);
 
