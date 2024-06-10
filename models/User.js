@@ -16,10 +16,10 @@ const userSchema = new mongoose.Schema({
         return emailRegex.test(value);
     },
   },
-  thoughts: [{ type: Schema.Types.ObjectId, ref: "Thoughts" }],
-  friends: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  thoughts: [{ type: Schema.Types.ObjectId, ref: "thoughts" }],
+  friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
 });
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("users", userSchema);
 
 module.exports = User;

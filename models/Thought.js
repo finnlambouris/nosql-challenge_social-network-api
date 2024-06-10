@@ -38,6 +38,6 @@ thoughtSchema.virtual("reactionCount").get(function () {
 // Use a getter method to format the timestamp on query
 // format(new Date(), "yyyy-MM-dd"),
 
-const Thought = mongoose.model("Thought", thoughtSchema);
+const Thought = mongoose.model("thoughts", thoughtSchema);
 
 module.exports = Thought;
