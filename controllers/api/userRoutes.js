@@ -1,10 +1,20 @@
 const router = require("express").Router();
-const User = require("../../models/User")
+const { User } = require("../../models/index.js")
 
 // /api/users GET route
 router.get("/", async (req, res) => {
     try {
         const result = await User.find();
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).send("Something went wrong");
+    }
+});
+
+// /api/users/:id GET route
+router.get("/:id", async (req, res) => {
+    try {
+        const result = await User.findOne({ _id: req.params.id });
         res.status(200).json(result);
     } catch (err) {
         res.status(500).send("Something went wrong");
@@ -25,10 +35,23 @@ router.post("/", (req, res) => {
     }
 });
 
-// /api/users/:id GET route
-router.get("/:id", async (req, res) => {
+// /api/users/:id PUT route
+router.put("/:id", async (req, res) => {
     try {
-        const result = await User.findOne({ _id: req.params.id });
+        const result = await User.findOneAndUpdate(
+            { _id: req.params.id },
+            { username: req.body.username, email: req.body.email, },
+            { new: true }
+        );
+        res.status(200).json(result);
+    } catch (err) {
+        res.status(500).send("Something went wrong");
+    }
+});
+
+router.delete("/:id", async (req, res) => {
+    try {
+        const result = await User.findOneAndDelete({ _id: req.params.id });
         res.status(200).json(result);
     } catch (err) {
         res.status(500).send("Something went wrong");
