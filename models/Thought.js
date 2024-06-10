@@ -13,9 +13,6 @@ const thoughtSchema = new mongoose.Schema(
         createdAt: {
             type: Date,
             default: () => Date.now(),
-            get: function () {
-                return format(this, "yyyy-MM-dd")
-            }
         },
         username: {
             type: String,
@@ -33,6 +30,10 @@ const thoughtSchema = new mongoose.Schema(
 
 thoughtSchema.virtual("reactionCount").get(function () {
     return this.reactions.length;
+});
+
+thoughtSchema.virtual("formattedDate").get(function () {
+    return format(this.createdAt, "yyyy-MM-dd");
 });
 
 const Thought = mongoose.model("thoughts", thoughtSchema);
